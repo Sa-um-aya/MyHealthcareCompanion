@@ -248,5 +248,5 @@ GitHub: https://github.com/Sa-um-aya/MyHealthcareCompanion/edit/main/README.md
 
 ---
 
-.
+
 
