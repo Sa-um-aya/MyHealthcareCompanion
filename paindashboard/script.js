@@ -67,81 +67,41 @@ window.location="results.html"
 
 if(window.location.pathname.includes("results.html")){
 
-let name=localStorage.getItem("name")
-let age=localStorage.getItem("age")
-let bmi=localStorage.getItem("bmi")
-let pain=parseInt(localStorage.getItem("pain"))
+async function getResults(){
+
+let pain=localStorage.getItem("pain")
 let issue=localStorage.getItem("issue")
 let duration=localStorage.getItem("duration")
+let bmi=localStorage.getItem("bmi")
 
-let medication=""
-let food=""
-let lifestyle=""
-let explanation=""
+let response = await fetch("http://127.0.0.1:5000/analyze",{
 
-if(issue==="headache"){
+method:"POST",
 
-medication="Paracetamol may help relieve headache pain."
-food="Drink water and eat magnesium-rich foods like bananas."
-lifestyle="Reduce screen exposure and rest."
+headers:{
+"Content-Type":"application/json"
+},
 
-explanation="Headache symptoms combined with pain rating triggered headache treatment advice."
+body: JSON.stringify({
+pain:pain,
+issue:issue,
+duration:duration,
+bmi:bmi
+})
 
-}
+})
 
-else if(issue==="stomach"){
+let data = await response.json()
 
-medication="Antacids may help with stomach discomfort."
-food="Eat light foods like rice, bananas and yogurt."
-lifestyle="Avoid spicy foods."
-
-explanation="Digestive discomfort detected based on user symptoms."
-
-}
-
-else if(issue==="muscle"){
-
-medication="Anti-inflammatory medication recommended."
-food="Protein rich foods to support muscle recovery."
-lifestyle="Stretching and warm compress."
-
-explanation="Muscle pain combined with pain score triggered recovery recommendations."
-
-}
-
-else if(issue==="fatigue"){
-
-medication="No medication required."
-food="Iron rich foods like spinach and lentils."
-lifestyle="Get enough sleep and hydration."
-
-explanation="Fatigue symptoms detected based on user input."
-
-}
-
-else if(issue==="fever"){
-
-medication="Paracetamol recommended if fever persists."
-food="Soups and fruits."
-lifestyle="Rest and hydration."
-
-explanation="Fever symptoms triggered temperature management advice."
-
-}
-
-if(pain>=7){
-
-lifestyle+=" Medical consultation recommended."
-
-explanation+=" Pain level above 7 indicates severe discomfort."
-
-}
-
-document.getElementById("medication").textContent=medication
-document.getElementById("food").textContent=food
-document.getElementById("lifestyle").textContent=lifestyle
+document.getElementById("medication").textContent=data.medication
+document.getElementById("food").textContent=data.food
+document.getElementById("lifestyle").textContent=data.lifestyle
 
 document.getElementById("explanation").textContent=
-"Explainable AI: Based on your pain score ("+pain+"), issue ("+issue+"), duration ("+duration+"), and BMI ("+bmi+"), Baymax generated these recommendations. "+explanation
+"Explainable AI: Based on your pain score ("+pain+"), issue ("+issue+"), duration ("+duration+"), and BMI ("+bmi+"), Baymax generated these recommendations. "+data.explanation
+
+}
+
+getResults()
 
 }
