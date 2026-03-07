@@ -76,3 +76,6 @@ background:black;
 top:35px;
 left:25px;
 }
+.eye{
+transition: transform 0.2s;
+}
