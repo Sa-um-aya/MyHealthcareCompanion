@@ -43,7 +43,6 @@ eye.style.transform="scaleY(1)";
 
 }
 
-
 // random blinking
 setInterval(blinkEyes,5000);
 
@@ -54,8 +53,10 @@ setInterval(blinkEyes,5000);
 
 function checkHeightWeight(){
 
-const height=document.getElementById("height").value;
-const weight=document.getElementById("weight").value;
+const height=document.getElementById("height")?.value;
+const weight=document.getElementById("weight")?.value;
+
+if(!height || !weight) return true;
 
 if(height > 220){
 typeMessage("Are you sure you're that tall?");
@@ -113,7 +114,7 @@ height:document.getElementById("height").value
 
 localStorage.setItem("user",JSON.stringify(user));
 
-window.location.href="health.html";
+window.location.href="/health";
 
 }
 
@@ -132,7 +133,7 @@ symptoms:document.getElementById("symptoms").value
 
 localStorage.setItem("health",JSON.stringify(health));
 
-window.location.href="pain.html";
+window.location.href="/pain";
 
 }
 
@@ -164,7 +165,7 @@ const pain=document.getElementById("painSlider").value;
 
 localStorage.setItem("pain",pain);
 
-window.location.href="results.html";
+window.location.href="/results";
 
 }
 
@@ -175,11 +176,20 @@ window.location.href="results.html";
 
 async function loadResults(){
 
-if(!document.getElementById("medication")) return;
+const medicationEl = document.getElementById("medication");
+
+if(!medicationEl) return; // run only on results page
 
 const user=JSON.parse(localStorage.getItem("user"));
 const health=JSON.parse(localStorage.getItem("health"));
 const pain=localStorage.getItem("pain");
+
+if(!user || !health || !pain){
+
+document.getElementById("explanation").innerText="Missing health data.";
+return;
+
+}
 
 const bmi=user.weight/((user.height/100)*(user.height/100));
 
@@ -190,7 +200,9 @@ pain:pain,
 bmi:bmi
 };
 
-const response=await fetch("http://localhost:5000/analyze",{
+try{
+
+const response=await fetch("/analyze",{
 method:"POST",
 headers:{
 "Content-Type":"application/json"
@@ -205,6 +217,17 @@ document.getElementById("food").innerText=result.food;
 document.getElementById("lifestyle").innerText=result.lifestyle;
 document.getElementById("explanation").innerText=result.explanation;
 
+}catch(error){
+
+document.getElementById("explanation").innerText="Error connecting to AI engine.";
+
 }
 
-loadResults();
+}
+
+
+// ===============================
+// RUN WHEN PAGE LOADS
+// ===============================
+
+window.onload=loadResults;

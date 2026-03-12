@@ -1,76 +1,47 @@
-def analyze_health(data):
+def analyze_health(pain, issue, duration, bmi):
 
-    pain = int(data.get("pain", 0))
-    issue = data.get("issue", "")
-    duration = data.get("duration", "")
-    bmi = float(data.get("bmi", 0))
+    # Default recommendations
+    medication = "Paracetamol"
+    food = "Drink plenty of water and eat light meals"
+    lifestyle = "Take rest and reduce screen time"
+    explanation = "Your symptoms suggest a mild condition."
 
-    medication = ""
-    food = ""
-    lifestyle = ""
-    explanation = ""
-
-    # Headache logic
+    # More specific logic
     if issue == "headache":
+        if pain >= 7:
+            medication = "Ibuprofen"
+            food = "Hydrate and avoid caffeine"
+            lifestyle = "Rest in a dark room"
+            explanation = "You may be experiencing a migraine."
 
-        medication = "Paracetamol may help relieve headache pain."
-        food = "Drink plenty of water and eat bananas."
-        lifestyle = "Reduce screen exposure and take proper rest."
+    # -------- RISK LEVEL --------
+    risk = "Low"
 
-        explanation = "Headache symptoms detected from user input."
-
-    # Stomach logic
-    elif issue == "stomach":
-
-        medication = "Antacids may help reduce stomach discomfort."
-        food = "Eat rice, yogurt and bananas."
-        lifestyle = "Avoid spicy and oily foods."
-
-        explanation = "Digestive discomfort detected."
-
-    # Muscle pain logic
-    elif issue == "muscle":
-
-        medication = "Anti-inflammatory medicine may help."
-        food = "Protein rich foods like eggs and lentils."
-        lifestyle = "Do stretching and apply warm compress."
-
-        explanation = "Muscle strain detected."
-
-    # Fatigue logic
-    elif issue == "fatigue":
-
-        medication = "Multivitamins may help."
-        food = "Eat fruits and balanced meals."
-        lifestyle = "Ensure proper sleep."
-
-        explanation = "Fatigue symptoms detected."
-
-    # Fever logic
-    elif issue == "fever":
-
-        medication = "Paracetamol may help reduce fever."
-        food = "Soup, fruits and fluids."
-        lifestyle = "Take rest and stay hydrated."
-
-        explanation = "Fever symptoms detected."
-
-    # Pain level explanation
     if pain >= 7:
+        risk = "High"
 
-        lifestyle += " High pain level detected. Doctor consultation recommended."
-        explanation += " Pain level above 7 triggered medical advice."
+    if bmi > 30:
+        risk = "Medium"
 
-    # BMI analysis
+    # -------- HEALTH SCORE --------
+    score = 100
+
+    score -= pain * 5
+
     if bmi > 25:
+        score -= 10
 
-        lifestyle += " Maintain healthy diet and exercise regularly."
+    if duration == "days":
+        score -= 10
+
+    if score < 0:
+        score = 0
 
     return {
-
         "medication": medication,
         "food": food,
         "lifestyle": lifestyle,
-        "explanation": explanation
-
+        "explanation": explanation,
+        "risk": risk,
+        "health_score": score
     }
