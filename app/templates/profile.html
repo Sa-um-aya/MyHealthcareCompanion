@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Profile</title>
+</head>
+<body>
+    
+
+<h2>Edit Health Profile</h2>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<form method="POST">
+
+    <label>Age</label><br>
+    <input type="number" name="age"><br><br>
+
+    <label>Gender</label><br>
+    <input type="text" name="gender"><br><br>
+
+    <label>Height (cm)</label><br>
+    <input type="number" name="height"><br><br>
+
+    <label>Weight (kg)</label><br>
+    <input type="number" name="weight"><br><br>
+
+    <label>Lifestyle</label><br>
+    <input type="text" name="lifestyle"><br><br>
+
+    <label>Family History</label><br>
+    <input type="text" name="family_history"><br><br>
+
+    <button type="submit">Save</button>
+
+</form>
+
+<br>
+
+<a href="{{ url_for('main.dashboard') }}">Back to Dashboard</a>
+
+</body>
+</html>

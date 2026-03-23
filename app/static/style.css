@@ -1,0 +1,105 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    text-align:center;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    width:350px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+select, textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+textarea{
+    height:80px;
+    resize:none;
+}
+
+button{
+    margin-top:20px;
+    padding:12px;
+    width:100%;
+    background:#4CAF50;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#43a047;
+}
+/* Baymax Face */
+
+.baymax-face{
+    width:100px;
+    height:60px;
+    position:relative;
+    margin:0 auto 20px auto;
+}
+
+/* Eyes */
+
+.eye{
+    width:12px;
+    height:12px;
+    background:black;
+    border-radius:50%;
+    position:absolute;
+    top:20px;
+
+    animation: blink 4s infinite;
+}
+
+.eye.left{
+    left:20px;
+}
+
+.eye.right{
+    right:20px;
+}
+
+/* Connecting line */
+
+.line{
+    width:40px;
+    height:2px;
+    background:black;
+    position:absolute;
+    top:26px;
+    left:30px;
+}
+
+/* Blink animation */
+
+@keyframes blink{
+    0%, 92%, 100%{
+        transform: scaleY(1);
+    }
+    95%{
+        transform: scaleY(0.1);
+    }
+}

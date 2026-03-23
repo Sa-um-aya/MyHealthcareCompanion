@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Healthcare Companion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Baymax face -->
+    <div class="baymax-face">
+        <div class="eye left"></div>
+        <div class="line"></div>
+        <div class="eye right"></div>
+    </div>><
+
+    <div class="card">
+
+        <h1>My Healthcare Companion</h1>
+
+        <p>Your personal AI health assistant</p>
+
+        <br>
+
+        <a href="{{ url_for('auth.login') }}">
+            <button>Login</button>
+        </a>
+
+        <br><br>
+
+        <a href="{{ url_for('auth.register') }}">
+            <button>Register</button>
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

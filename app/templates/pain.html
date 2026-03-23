@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pain Level</title>
+<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+<script src="{{ url_for('static', filename='script.js')}}"></script>
+</head>
+
+<body>
+   
+
+    <!-- Baymax face -->
+    <div class="baymax-face">
+        <div class="eye left"></div>
+        <div class="line"></div>
+        <div class="eye right"></div>
+    </div>
+
+<div class="container">
+
+<h2>On a scale of 1 to 10 how would you rate your pain🤔</h2>
+
+<form action="/result" method="POST">
+
+<label>Pain Level (1 - 10)</label>
+
+<input type="range" min="1" max="10" name="pain" id="painRange">
+
+<p>Your Pain Level: <span id="painValue">5</span></p>
+
+<button type="submit">Analyze</button>
+
+</form>
+
+</div>
+
+</body>
+
+</html>sss

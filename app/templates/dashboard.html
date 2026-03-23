@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<h1>Welcome {{ user.username }} 👋</h1>
+
+<h2>Your Health Profile</h2>
+
+<ul>
+    <li>Age: {{ user.age }}</li>
+    <li>Gender: {{ user.gender }}</li>
+    <li>Height: {{ user.height }} cm</li>
+    <li>Weight: {{ user.weight }} kg</li>
+    <li>Lifestyle: {{ user.lifestyle }}</li>
+    <li>Family History: {{ user.family_history }}</li>
+</ul>
+
+<hr>
+
+<h2>Health Tools</h2>
+
+<a href="{{ url_for('main.index') }}">
+    <button>Start Symptom Check</button>
+</a>
+
+<a href="{{ url_for('main.profile') }}">
+    <button>Edit Health Profile</button>
+</a>
+
+<a href="{{ url_for('auth.logout') }}">
+    <button>Logout</button>
+</a>
+
+</body>
+</html>
