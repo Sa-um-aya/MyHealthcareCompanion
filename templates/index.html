@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Health Care Center</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<style>
+.logo {
+    width: 50px;
+    height: 50px;
+}
+.myimg {
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 25px;
+}
+</style>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="logo">
+            <img class="myimg" src="{{ url_for('static', filename='img.png') }}">
+        </div>
+
+        <a class="navbar-brand" href="#">Health Center</a>
+    </div>
+</nav>
+
+<!-- FORM -->
+<h1 class="mt-4 text-center">Health Care Center</h1>
+
+<div class="container my-4" style="background: black; color: white; border-radius: 15px; padding: 40px;">
+    <form action="/predict" method="post">
+        <label>Enter Symptoms:</label>
+        <input type="text" class="form-control" name="symptoms" placeholder="itching, fever, cough">
+        <br>
+        <button type="submit" class="btn btn-danger w-100">Predict</button>
+    </form>
+</div>
+
+{% if predicted_disease %}
+
+<!-- RESULTS -->
+<h2 class="text-center">Results</h2>
+
+<div class="container text-center">
+
+    <!-- Buttons -->
+    <button data-bs-toggle="modal" data-bs-target="#diseaseModal" class="btn btn-warning m-2">Disease</button>
+    <button data-bs-toggle="modal" data-bs-target="#descriptionModal" class="btn btn-primary m-2">Description</button>
+    <button data-bs-toggle="modal" data-bs-target="#precautionModal" class="btn btn-info m-2">Precautions</button>
+    <button data-bs-toggle="modal" data-bs-target="#medicationsModal" class="btn btn-danger m-2">Medications</button>
+    <button data-bs-toggle="modal" data-bs-target="#workoutsModal" class="btn btn-success m-2">Workouts</button>
+    <button data-bs-toggle="modal" data-bs-target="#dietsModal" class="btn btn-secondary m-2">Diet</button>
+
+    <!-- 🔥 NEW SHAP BUTTON -->
+    <button data-bs-toggle="modal" data-bs-target="#shapModal" class="btn btn-dark m-2">
+        Why Prediction?
+    </button>
+
+</div>
+
+{% endif %}
+
+<!-- Disease Modal -->
+<div class="modal fade" id="diseaseModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5>Disease</h5>
+            </div>
+            <div class="modal-body">{{ predicted_disease }}</div>
+        </div>
+    </div>
+</div>
+
+<!-- Description Modal -->
+<div class="modal fade" id="descriptionModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5>Description</h5>
+            </div>
+            <div class="modal-body">{{ dis_des }}</div>
+        </div>
+    </div>
+</div>
+
+<!-- Precautions -->
+<div class="modal fade" id="precautionModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5>Precautions</h5>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for i in my_precautions %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Medications -->
+<div class="modal fade" id="medicationsModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5>Medications</h5>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for i in medications %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Workouts -->
+<div class="modal fade" id="workoutsModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5>Workouts</h5>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for i in workout %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Diet -->
+<div class="modal fade" id="dietsModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5>Diet</h5>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for i in my_diet %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 🔥 SHAP MODAL -->
+<div class="modal fade" id="shapModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header bg-dark text-white">
+                <h5>Why this Prediction?</h5>
+            </div>
+
+            <div class="modal-body">
+
+                {% if shap_explanation %}
+                <ul>
+                    {% for feature, value in shap_explanation.items() %}
+                    <li>
+                        <b>{{ feature.replace('_',' ').title() }}</b> :
+                        <span style="color:{% if value > 0 %}green{% else %}red{% endif %}">
+                            {{ value | round(3) }}
+                        </span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>No explanation available</p>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
