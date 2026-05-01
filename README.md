@@ -1,16 +1,69 @@
-# Personalized-Medical-Recommendation-System-with-Machine-Learning
-Welcome to our cutting-edge Personalized Medical Recommendation System, a powerful platform designed to assist users in understanding and managing their health. Leveraging the capabilities of machine learning, our system analyzes user-input symptoms to predict potential diseases accurately. Here's what sets our system apart:
+# Personalized Healthcare Pathway Recommendation Using Explainable AI
 
-User-Friendly Interface: Our intuitive interface allows users to input their symptoms effortlessly, creating a seamless user experience.
+> **"I am Baymax, your personal healthcare companion."**
 
-Advanced Machine Learning Models: We've integrated state-of-the-art machine learning models that accurately predict diseases based on input symptoms, ensuring reliable and precise results.
+Healthcare should feel supportive, understandable, and personal — not confusing or intimidating.
 
-Tailored Recommendations: Receive personalized recommendations for the top 5 medicines, prescription details, and even workout routines based on the predicted disease.
+This project is a **Personalized Medical Recommendation System** that predicts diseases based on user symptoms and provides **clear explanations using Explainable AI (SHAP)**.
 
-Flask App Integration: The entire system is powered by a Flask web application, making it easily accessible to users. Experience the convenience of accessing healthcare recommendations from anywhere.
+---
 
-Privacy and Security: We prioritize user privacy and data security. Your health information is handled with the utmost confidentiality, adhering to the highest industry standards.
+## 🚀 Features
 
-Continuous Improvement: Our system is designed for continuous improvement. As we gather more data, the machine learning models evolve, providing increasingly accurate and relevant recommendations.
+- 🔍 Disease prediction using Machine Learning (SVM)
+- 🧠 Explainable AI using SHAP
+- 💊 Personalized recommendations:
+  - Medications
+  - Precautions
+  - Diet plans
+  - Workouts
+- 🌐 Flask-based web application
+- 🎤 Speech input support (browser-based)
 
-Take charge of your health with our Personalized Medical Recommendation System. Your well-being is our priority, and we're dedicated to providing you with the tools and insights you need for a healthier, happier life.
+---
+
+## 🧠 How It Works
+
+1. User enters symptoms
+2. Symptoms are converted into a feature vector (132 features)
+3. SVM model predicts disease
+4. SHAP explains which symptoms influenced the prediction
+5. System returns:
+   - Disease name
+   - Description
+   - Precautions
+   - Medications
+   - Diet & Workout
+
+---
+
+## ⚙️ Tech Stack
+
+### Backend
+- Python
+- Flask
+
+### Machine Learning
+- Scikit-learn (SVM)
+- SHAP (Explainable AI)
+
+### Frontend
+- HTML
+- Bootstrap
+
+---
+
+## 📊 Explainable AI (SHAP)
+
+The system uses SHAP to explain predictions:
+
+- Which symptoms increased risk
+- Which symptoms decreased risk
+- Top contributing factors
+
+Example:
+> “Fever and cough were the strongest contributors to the prediction.”
+
+---
+
+## 🧪 Project Structure

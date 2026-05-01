@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Health Information</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+</head>
+
+<body>
+
+
+    <!-- Baymax face -->
+    <div class="baymax-face">
+        <div class="eye left"></div>
+        <div class="line"></div>
+        <div class="eye right"></div>
+    </div>
+
+<div class="container">
+
+<h2>Tell us about your health issue</h2>
+
+<form action="/pain" method="POST">
+
+<label>What issue are you experiencing?</label>
+
+<select name="issue">
+<option value="headache">Headache</option>
+<option value="stomach">Stomach Pain</option>
+<option value="cold">Cold / Fever</option>
+<option value="fatigue">Fatigue</option>
+</select>
+
+<label>How long have you had this?</label>
+
+<select name="duration">
+<option value="hours">Few Hours</option>
+<option value="days">Few Days</option>
+<option value="weeks">Weeks</option>
+</select>
+
+<label>Describe your symptoms</label>
+
+<textarea name="symptoms"></textarea>
+
+<button type="submit">Continue</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
